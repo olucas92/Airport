@@ -2,11 +2,9 @@ class Airport
 
   DEFAULT_CAPACITY = 10
 
-  def initialize!
+  def initialize
     @planes ||= []
-  end
-
-  def plane
+    @planes = []
   end
 
   def airport
@@ -15,7 +13,7 @@ class Airport
 
   def dock(plane)
     raise "Airport is full" if full?
-    planes << plane
+    @planes << plane
   end
 
   def full?
@@ -23,7 +21,8 @@ class Airport
   end
 
   def release(plane)
-    planes.delete(plane)
+    @planes.delete(plane)
+    plane.take_off
   end
 
   def plane_count
@@ -41,7 +40,5 @@ class Airport
   def empty?
     plane_count == 0
   end
-
-
 
 end
