@@ -1,10 +1,22 @@
 class Plane
 
+  def initialize!
+    fly!
+  end
+
   def flying?
-    flying = true
+    @flying
+  end
+
+  def fly!
+    @flying = true
   end
 
   def land!
-    flying = false
+    @flying = false
   end
+
+  # def take_off(plane)
+  #  airport.release(plane)
+  # end
 end
