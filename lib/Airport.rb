@@ -45,12 +45,13 @@ class Airport
     #bring back either sunny or stormy weather condition
     @weather_condition = ['sunny', 'stormy'].shuffle.first
 
-    if @weather_condition = 'sunny'
+    if @weather_condition == 'sunny'
       sunny_weather_condition = @weather_condition
     end
 
-    if @weather_condition = 'stormy'
+    if @weather_condition == 'stormy'
       stormy_weather_condition = @weather_condition
     end
+  end
 
 end
