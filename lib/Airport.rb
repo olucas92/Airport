@@ -42,7 +42,7 @@ class Airport
   end
 
   def weather_status
-    #bring back either sunny or stormy weather condition
+
     @weather_condition = ['sunny', 'sunny', 'sunny', 'stormy'].shuffle.first
 
     if @weather_condition == 'sunny'
