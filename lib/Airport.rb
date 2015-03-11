@@ -28,7 +28,7 @@ class Airport
   end
 
   def release(plane)
-    raise "too stormy to take off" if stormy?
+    raise "It's too stormy to take off!" if stormy?
     @planes.delete(plane)
     plane.take_off
   end
@@ -52,6 +52,10 @@ class Airport
   def clear_for_landing
     raise "It's too stormy to land!" if stormy?
     raise "Sorry, the airport is full!" if full?
+  end
+
+  def next_day
+    @weather = conditions
   end
 
 end

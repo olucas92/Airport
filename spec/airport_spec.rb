@@ -19,7 +19,6 @@ describe Airport do
     end
 
     it "planes should be able to take off" do
-      airport.dock(grounded_plane)
       expect(grounded_plane).to receive(:take_off)
       airport.release(grounded_plane)
       expect(airport.plane_count).to eq(0)
@@ -35,13 +34,23 @@ describe Airport do
     end
   end
 
-  xcontext 'weather control' do
+  context 'weather control' do
 
     it "planes should not be able to land in a storm" do
+      allow(airport).to receive(:stormy?).and_return true
+      expect(lambda {airport.dock(plane)}).to raise_error(RuntimeError, "It's too stormy to land!")
     end
 
     it "planes should not be able to take off in a storm" do
+      allow(airport).to receive(:stormy?).and_return true
+      expect(lambda {airport.release(plane)}).to raise_error(RuntimeError, "It's too stormy to take off!")
     end
+
+    it "weather should be random for every day" do
+      airport.next_day
+      expect(["sunny", "stormy"].include?(airport.conditions)).to eq true
+    end
+
   end
 
 end
