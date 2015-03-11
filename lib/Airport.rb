@@ -1,6 +1,12 @@
+require_relative 'weather.rb'
+
 class Airport
 
+  include Weather
+
   DEFAULT_CAPACITY = 10
+
+  attr_reader :planes
 
   def initialize
     @planes ||= []
@@ -12,7 +18,8 @@ class Airport
   end
 
   def dock(plane)
-    raise "Airport is full" if full?
+    clear_for_landing
+    plane.land!
     @planes << plane
   end
 
@@ -21,6 +28,7 @@ class Airport
   end
 
   def release(plane)
+    raise "too stormy to take off" if stormy?
     @planes.delete(plane)
     plane.take_off
   end
@@ -41,17 +49,9 @@ class Airport
     plane_count == 0
   end
 
-  def weather_status
-
-    @weather_condition = ['sunny', 'sunny', 'sunny', 'stormy'].shuffle.first
-
-    if @weather_condition == 'sunny'
-      sunny_weather_condition = @weather_condition
-    end
-
-    if @weather_condition == 'stormy'
-      stormy_weather_condition = @weather_condition
-    end
+  def clear_for_landing
+    raise "It's too stormy to land!" if stormy?
+    raise "Sorry, the airport is full!" if full?
   end
 
 end
